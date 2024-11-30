@@ -1,37 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h2 align='center'>:earth_americas: Next 14 Template :earth_americas:</h2>
 
-## Getting Started
+<p align="center">
+  <br>
+  <img width="900" src="./assets/next14.png" alt="logo of Next14 repository">
+  <br>
+  <br>
+</p>
 
-First, run the development server:
+## :pushpin: Requirements: :pushpin:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NodeJs: :link: https://nodejs.org/en/
+
+---
+
+#### :arrow_forward: Get Started:
+
+1. Clone this repo
+
+```sh
+git clone https://github.com/Aleydon/Next14.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install NPM packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install or yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3.  Run this project
 
-## Learn More
+```sh
+npm run dev or yarn dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<h2>Template configuration:</h2>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Jest + Testing Library for automated testing. :link: https://jestjs.io/ + https://testing-library.com/
+- Storybook for component documentation. :link: https://storybook.js.org/
+- Eslint + Prettier for code standardization and formatting. :link: https://eslint.org/ + https://prettier.io/
+- Typescript for typing. :link: https://www.typescriptlang.org/
+- Tailwind Css for styling components. :link: https://tailwindcss.com/
+- HuskyJs for automatically lint your commit messages, code, and run tests upon committing or pushing. :link: https://typicode.github.io/husky/
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<h2>Tests + Storybook:</h2>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Next14
+- How to run tests:
+
+```sh
+npm run test or npm run test:watch
+```
+
+It has an example of tests with Jest + Testing-Library in _src/app/page.spec.tsx_
+
+```ts
+import { render, screen } from '@testing-library/react';
+
+import Page from './page';
+
+describe('Page Component', () => {
+  it('should get the text hello world', () => {
+    render(<Page />);
+    const hello = screen.getByText('Hello World');
+    expect(hello).toBeDefined();
+  });
+
+  it('should get the text hello world in the component s heading', () => {
+    render(<Page />);
+    const heading = screen.getByRole('heading', {
+      name: 'Hello World'
+    });
+    expect(heading).toBeInTheDocument();
+  });
+
+  it('must get the link from the page component', () => {
+    render(<Page />);
+    const link = screen.getByRole('link', { name: 'github.com/Aleydon' });
+    expect(link).toBeDefined();
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('aria-label', 'github.com/Aleydon');
+  });
+});
+
+```
+
+---
+
+- How to run storybook:
+
+```sh
+npm run storybook or yarn storybook
+```
+
+<p align="center">
+  <br>
+  <img width="1100" src="./assets/storybok_screen_shot.png" alt="storybook running">
+  <br>
+  <br>
+</p>
+
+also has an example of using Storybook in the Text component in _src/app/components/Text/text.stories.tsx_
+
+```ts
+import type { Meta, StoryObj } from '@storybook/react';
+
+import Text, { type TextProps } from '.';
+
+const text: Meta<typeof Text> = {
+  component: Text,
+  title: 'Components/Text'
+};
+
+export default text;
+
+export const Small: StoryObj<TextProps> = {
+  args: {
+    size: 'small',
+    children: 'Small Text'
+  }
+};
+
+export const Medium: StoryObj<TextProps> = {
+  args: {
+    size: 'medium',
+    children: 'Medium Text'
+  }
+};
+export const Large: StoryObj<TextProps> = {
+  args: {
+    size: 'large',
+    children: 'Large Text'
+  }
+};
+```
